@@ -56,7 +56,9 @@ CFLAGS = {
 	'fast': {
 		'msvc':	   ['/O2', '/Oy', '/MT'],
 		'gcc':	   ['-Ofast'],
-		'clang':   ['-Ofast'],
+		'clang':   ['-Ofast', '-fno-semantic-interposition', '-fno-math-errno', '-fno-trapping-math', '-funsafe-math-optimizations'],
+#		'clang':   ['-Ofast'],
+#		'clang':   ['-O3'],
 		'default': ['-O3']
 	},
 	'fastnative': {
@@ -90,7 +92,7 @@ CFLAGS = {
 LTO_CFLAGS = {
 	'msvc':  ['/GL'],
 	'gcc':   ['-flto'],
-	'clang': ['-flto']
+	'clang': ['-flto=thin']
 }
 
 LTO_LINKFLAGS = {
@@ -101,7 +103,9 @@ LTO_LINKFLAGS = {
 
 POLLY_CFLAGS = {
 	'gcc':   ['-fgraphite-identity'],
-	'clang': ['-mllvm', '-polly']
+#	'clang': ['-mllvm=-polly', '-mllvm=-polly-vectorizer=stripmine', '-mllvm=-polly-omp-backend=LLVM', '-mllvm=-polly-parallel', '-mllvm=-polly-scheduling=dynamic']
+	'clang': ['-fopenmp', '-DHAVE_OPENMP=1']
+#	'clang': []
 	# msvc sosat :(
 }
 

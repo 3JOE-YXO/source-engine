@@ -1,0 +1,17 @@
+#!/bin/bash
+export CC="clang" GCC="clang" CPP="clang-cpp" CXX="clang++" OCC="clang" RANLIB="llvm-ranlib" LD="ld.lld" AR="llvm-ar" NM="llvm-nm" STRIP="llvm-strip" OBJCOPY="llvm-objcopy" OBJDUMP="llvm-objdump" READELF="llvm-readelf" HOSTCC="clang" HOSTCXX="clang++" HOSTAR="llvm-ar" HOSTLD="ld.lld"
+export CMAKE_C_COMPILER="clang" CMAKE_CXX_COMPILER="clang++"
+#
+export CMAKE_CXX_COMPILER_ID=Clang
+export CMAKE_C_COMPILER_ID=Clang
+#
+export LDFLAGS="-march=bdver2 -mno-tbm -mtune=bdver2 -stdlib=libc++ -fuse-ld=lld"
+export CFLAGS="-march=bdver2 -mno-tbm -mtune=bdver2 -pipe"
+export CPPFLAGS="-march=bdver2 -mno-tbm -mtune=bdver2 -pipe"
+export CXXFLAGS="-march=bdver2 -mno-tbm -mtune=bdver2 -stdlib=libc++ -pipe"
+export CMAKE_C_FLAGS="-march=bdver2 -mno-tbm -mtune=bdver2 -pipe"
+export CMAKE_CXX_FLAGS="-march=bdver2 -mno-tbm -mtune=bdver2 -fcommon -stdlib=libc++ -pipe"
+#
+PATH=/usr/lib/llvm-18/bin:$PATH ./waf configure --build-type=fast --enable-poly-opt --enable-lto
+PATH=/usr/lib/llvm-18/bin:$PATH ./waf build -j3
+PATH=/usr/lib/llvm-18/bin:$PATH ./waf install --destdir="/opt/hl2/test"

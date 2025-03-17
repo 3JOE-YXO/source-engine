@@ -98,7 +98,7 @@ LTO_CFLAGS = {
 LTO_LINKFLAGS = {
 	'msvc':  ['/LTCG'],
 	'gcc':   ['-flto'],
-	'clang': ['-flto']
+	'clang': ['-flto=thin']
 }
 
 POLLY_CFLAGS = {
